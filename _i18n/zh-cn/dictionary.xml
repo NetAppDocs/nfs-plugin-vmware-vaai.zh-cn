@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blocks>
+  <block id="a3100bf3334206028c894a5568ddcf09" category="summary">介绍新增功能，升级说明，已修复的问题，已知限制和已知问题。</block>
+  <block id="0a874eb9be2efc8299ca77a37d9c153f" category="doc">适用于 VMware VAAI 的 NetApp NFS 插件发行说明</block>
+  <block id="a3c89f65adac53b9fc8f1c007df5e8d1" category="paragraph">。 <block ref="5587782ec3bf4b059cb9bda76c73dcb9" category="inline-link-macro-rx"></block> 描述新功能，升级说明，已修复的问题，已知限制和已知问题。</block>
+  <block id="c41b14124d59529e2f27f5427dedeb36" category="summary">集成 ESXi 主机上安装的 VMware 虚拟磁盘库的软件库。</block>
+  <block id="b5cbb0e717e173a2a024067db337cc0c" category="doc">适用于 VMware VAAI 的 NetApp NFS 插件文档</block>
+  <block id="9edbef0767827c25b7a8afbb9f6654db" category="paragraph">借助此插件，您可以体验到更高性能的克隆操作，这些操作可以更快地完成。您将获得一个软件库，该软件库集成了 ESXi 主机上安装的 VMware 虚拟磁盘库。</block>
+  <block id="bf98a381de0a256c298bebafc4de50a1" category="summary">安装 NFS 插件涉及到在 NetApp 存储系统上启用适用于 NFS 的 VMware vStorage ，验证 VMware 主机上是否已启用 VAAI （适用于阵列集成的 VMware vStorage API ），在 VMware ESXi 主机上下载并安装此插件，以及验证安装是否成功。</block>
+  <block id="2cd449575a6433677571f502b2c3ce6e" category="doc">安装适用于 VMware VAAI 的 NetApp NFS 插件</block>
+  <block id="135b308ed83c53f1516b7c754566d1c4" category="list-title">开始之前</block>
+  <block id="1d58a6eb2e13dd3689b7f44320319066" category="list-text">必须在存储系统上启用 NFSv3 或 NFSv4.1 。</block>
+  <block id="6e8842288bd1b400a94a0e07df702993" category="admonition">NFSv4.1 仅适用于 ONTAP 9.0 系统，而 NFSv3 同时适用于 7- 模式和集群模式系统。</block>
+  <block id="039911735aef4adf36915090e19821ae" category="list-text">VMware vSphere 7.0U1 必须可用。</block>
+  <block id="b95982609bcaa66a9948629f87fe8589" category="inline-xref">第 10 步</block>
+  <block id="1ba3ec4f2d49189c689f2f920f134c43" category="paragraph">有关追加信息 启用 NFS 和使用 VMware vSphere 的信息，请参见中列出的手册 <block ref="8f4290af71411856897bbab4daf63b37" category="inline-xref-macro-rx"></block>。</block>
+  <block id="bbe48fb854ea022537208eeeff822f91" category="list-title">关于此任务</block>
+  <block id="6f4a225b29c0975663d0e4b9e1f4547f" category="inline-xref">第 1 步</block>
+  <block id="65059694f74420f1a8022d6728d593d9" category="list-text">如果使用 VMware ESXi 命令行界面安装此插件，请从开始 <block ref="a21f3b2098abe7275d608a6a9c864195" category="inline-xref-macro-rx"></block>。</block>
+  <block id="2d5ce426423eeeead4f35769cd8b1b27" category="inline-xref">第 3 步</block>
+  <block id="3ffc3ab365a79adb8adcff39380edf83" category="list-text">如果要使用适用于 VMware vSphere 的 Virtual Storage Console （ VSC ）安装此插件，请从开始 <block ref="6f5e80c5f38b7c17bfcb05f65cf8fc44" category="inline-xref-macro-rx"></block>。</block>
+  <block id="c4ca4238a0b923820dcc509a6f75849b" category="inline-xref">1.</block>
+  <block id="c81e728d9d4c2f636f067f89cc14862c" category="inline-xref">2.</block>
+  <block id="fb84e1c7b3725d40b76631ba1eee97b1" category="paragraph">VSC 会在存储控制器上启用 VMware vStorage for NFS ，并在 ESXi 主机上启用 VAAI ，这些步骤如下 <block ref="9493c6647e1f9209426db866558b9c51" category="inline-xref-macro-rx"></block> 到 <block ref="989843df4f2b99286183effb1dd535fc" category="inline-xref-macro-rx"></block> 的操作步骤 。</block>
+  <block id="e4fb07b450976b3304f3201d5ad999b6" category="list-text">如果要使用适用于 VMware vSphere 的 ONTAP 工具安装此插件，请从开始 <block ref="6f5e80c5f38b7c17bfcb05f65cf8fc44" category="inline-xref-macro-rx"></block>。</block>
+  <block id="edb7bef0507977fee035ede5263c0af2" category="paragraph">使用的 * IP 地址约定： *</block>
+  <block id="1b717bef1bd876cf4ac712d6c2e16838" category="list-text">192.168.42.2xx 形式的 IP 地址是指 ESXi 服务器 VMkernel 端口。</block>
+  <block id="d954214cd3f9a7e8baf4a4e05cca4fef" category="list-text">192.168.42.6x 格式的 IP 地址是指运行 7- 模式 Data ONTAP 的系统。</block>
+  <block id="f841fda56776ddab948bea75303f2c2f" category="list-text">IP 地址 192.168.42.8x 表示 ONTAP 系统上的 Storage Virtual Machine （ SVM ，以前称为 Vserver ）。</block>
+  <block id="f3a29486bed19a90f2da6d007818b427" category="list-title">步骤</block>
+  <block id="0bd6a283b9a46c2b90e3fb5657c9f5da" category="list-text">【第 1 步】启用适用于 NFS 的 VMware vStorage ：</block>
+  <block id="67e197628ee63a9336509b8031677e89" category="cell">如果您使用 ...</block>
+  <block id="c1325f6903ebb5ebb2bb519a73ddb1b0" category="cell">那么 ...</block>
+  <block id="d41d8cd98f00b204e9800998ecf8427e" category="doc"></block>
+  <block id="de134183bea5df515a6756a539ce6f18" category="paragraph">ONTAP 命令行界面</block>
+  <block id="c842bffb66dcdc5b972bbe3806e1acc4" category="paragraph">在 SVM 上为 NFS 启用 VMware vStorage ： `vserver nfs modify – vserver vserver_name -vStorage enabled` ` &lt;vserver_name&gt;` 是 SVM 的名称。</block>
+  <block id="86ed5a61f48bcf34b144541178a9d125" category="paragraph">7- 模式 CLI</block>
+  <block id="33979ab73dfc05bead46f62dd940cb20" category="paragraph">在存储系统上启用适用于 NFS 的 VMware vStorage ： `options nfs.vStorage.enable on`</block>
+  <block id="d2ec93485d6eee295517b184e4d865b1" category="paragraph">适用于 vFiler 单元的 7- 模式 CLI</block>
+  <block id="b671f3d5fe5611645439610765306dff" category="paragraph">在托管 VMware NFS 数据存储库的 MultiStore vFiler 单元上安装适用于 NFS 的 NetApp NFS 插件 vStorage ： `vFiler run vfiler_name options nfs.vStorage.enable on`</block>
+  <block id="523b8c395b4782b100a432b78cf7bf82" category="list-text">【第 2 步】验证是否已在每个 ESXi 主机上启用 VAAI 。</block>
+  <block id="859fdcf37593d727a4f59d5b7abb03a4" category="paragraph">在 VMware vSphere 5.0 及更高版本中， VAAI 默认处于启用状态。</block>
+  <block id="41562a9885b30f2d4d0409feec112301" category="paragraph">VMware ESXi 命令行界面</block>
+  <block id="cffa1dac759d2fa45a77578ec36fb45b" category="list-text">验证是否已启用 VAAI ： `esxcfg-advcfg -g /DataMover/HardwareAcceleratedMove` `esxcfg-advcfg -g /DataMover/HardwareAcceleratedInit`</block>
+  <block id="be7fc77cfd7eafe6e9487a977430f561" category="paragraph">如果启用了 VAAI ，则这些命令将显示以下输出：</block>
+  <block id="933beed06ed133197bfe285c76b7ff48" category="list-text">如果未启用 VAAI ，请启用 VAAI ： `esxcfg-advcfg -s 1 /DataMover/HardwareAcceleratedInit` `esxcfg-advcfg -s 1 /DataMover/HardwareatedAccelerMove`</block>
+  <block id="7ec1eeb3c8010fa1ec0cdb4377f644ea" category="paragraph">这些命令将显示以下输出：</block>
+  <block id="049c3503e6d434744d04bb8e3b7f39be" category="paragraph">vSphere 客户端</block>
+  <block id="a270592232d9d6514ce0ee979df39631" category="list-text">登录到 vCenter Server 。</block>
+  <block id="04c95cacfbf82cdde2b91c70395fd401" category="list-text">对于每个 ESXi 服务器，单击服务器名称。</block>
+  <block id="2b24db43f6f18905e8b2c060fc78ec98" category="list-text">在配置选项卡的软件部分中，单击 * 高级设置 * 。</block>
+  <block id="9be42b6b8c7cd7aa6b610841e1cfbf79" category="list-text">选择 * DataMover* ，然后验证 `DataMover.HardwareAcceleratedMove` 和 `DataMover.HardwareAcceleratedInit` 参数是否设置为 1 。</block>
+  <block id="74efc7a80f728081c4c5dffea69a6e04" category="list-text">【第 3 步】下载适用于 VMware VAAI 的 NetApp NFS 插件：</block>
+  <block id="ea193ae4c3d51a911f7315ec65bc32df" category="inline-link">适用于 VMware VAAI 的 NetApp NFS 插件下载</block>
+  <block id="fb17ba4a99b09467f9c74b9e2e118576" category="list-text">转到下载页面，网址为<block ref="65095c4704b8f4c7de538e0714fe91ec" category="inline-link-rx"></block>。</block>
+  <block id="fe7c02072f421eec45e6b3d6a4f22a84" category="list-text">下载适用于 2.0 和 vSphere 7.0U1 及更高版本的最新软件版本。</block>
+  <block id="aa138e612a93a8ba8b0894444e154798" category="list-text">使用以下命令在 ESXi 主机上安装此插件：</block>
+  <block id="ffb9bd6fd201fa872c732a77697dff9c" category="paragraph">`esxcli 软件组件应用 -d /&lt;tmp&gt;/&lt;or&gt;/&lt;ase_path\&gt;/&lt;downloaded-plugin-file-version\&gt;.zip`</block>
+  <block id="b8c172cbcf6752c33f19da0dce7c36e3" category="paragraph">其中， ` &lt;asor_path&gt;` 是下载文件位置的路径， ` &lt;downloaded-plugin-file-version&gt;` 是下载文件的名称。</block>
+  <block id="33d39932b49b03dd01884f8dafa83003" category="list-text">运行以下命令以完成安装：</block>
+  <block id="1aff16ddc088e52eb042b0cb7f757cfb" category="paragraph">` /etc/init.d/VAAI-NASD start`</block>
+  <block id="6a0e7f9e8f08992284d207c6e71368f7" category="paragraph">` /etc/init.d/VAAI-NASD stop`</block>
+  <block id="c2e0793b7a849210f05eefa6d3ed65fc" category="list-text">通过 VMware ESXi 命令行验证此插件是否已成功安装在主机上：</block>
+  <block id="771ba422c8c68985f737cf0888b8ad1d" category="paragraph">`esxcli 软件组件列表`</block>
+  <block id="7219cab90334f7ef06cd35e2bcf898bb" category="paragraph">安装并重新启动后，此插件将自动运行。</block>
+  <block id="5a0d025781cdb77b413f4f619cfd0db1" category="paragraph">使用这些命令可确保组件与 vSphere 的新 VLCM 功能保持兼容，此功能可从 7.0x 及更高版本获得。</block>
+  <block id="3ca7940081986321247378c8971483d2" category="inline-link-macro">为 ONTAP 配置导出策略以允许基于 NFS 的 VAAI</block>
+  <block id="1d96a4dcdde75c4e2e89f925ecbe362e" category="list-text">如果要在新主机系统上安装此插件，或者已新配置运行 ONTAP 的服务器，请为使用 VAAI 的 ESXi 服务器上的根卷和每个 NFS 数据存储库卷创建或修改导出策略规则 <block ref="6614d749bd815cce9652fb687efa84f1" category="inline-link-macro-rx"></block>。</block>
+  <block id="0311352681d769565e8b831eb800910b" category="paragraph">如果您使用的是 7- 模式 Data ONTAP ，请跳过此步骤。</block>
+  <block id="024af1758c4cacb3ad788e1fc0093065" category="paragraph">您可以使用导出策略将对卷的访问限制为特定客户端。要使 VAAI 副本卸载正常工作，导出策略中需要 NFSv4 ，因此您可能需要修改 SVM 上数据存储库卷的导出策略规则。如果要在数据存储库上使用 NFS 以外的协议，请验证在导出规则中设置 NFS 不会删除这些其他协议。</block>
+  <block id="e36c291cc4eb06f69078bce9a1f8c962" category="cell">如果您使用</block>
+  <block id="8d2662a9ca62f4dc20a4f97b872f58c5" category="paragraph">将 `nfs` 设置为使用 VAAI 的 ESXi 服务器的每个导出策略规则的访问协议： `vserver export-policy rule modify -vserver vs1 -policyname MyPolicy -ruleindex 1 -protocol nfs -rwrule krb5|krb5i|any -rorule krb5|krb5i_any`</block>
+  <block id="ea8ebf645588fe3f13e376c68337f3ad" category="paragraph">在以下示例中：</block>
+  <block id="0b9068ecd0651bdb57ce4c018c1e7455" category="list-text">`vs1` 是 SVM 的名称。</block>
+  <block id="a2293bfc0d631349795b9bade6d07005" category="list-text">`mypolicy` 是导出策略的名称。</block>
+  <block id="ce75b12c88818155edadea982e751c55" category="list-text">`1` 是规则的索引编号。</block>
+  <block id="8401173a9c3e4cf3af7fc935baa22d59" category="list-text">`NFS` 包括 NFSv3 和 NFSv4 协议。</block>
+  <block id="3bd95d42e0e2974cf0801ead211ea45f" category="list-text">RO （只读）和 RW （读写）的安全模式为 krb5 ， krb5i 或任何。</block>
+  <block id="6ad5e0a20f49ad6a370454bb3afc9a9e" category="paragraph">ONTAP 系统管理器</block>
+  <block id="429967c315f871c1cfc6eab4d40ac195" category="list-text">在主页选项卡中，双击相应的集群。</block>
+  <block id="4632418052c7e8ea45ec3aacd263e628" category="list-text">在左侧导航窗格中展开 Storage Virtual Machine （ SVM ）层次结构。</block>
+  <block id="4d4674159d5197b421336dd2d287e061" category="admonition">如果您使用的 System Manager 版本低于 3.1 ，则在层次结构中使用术语 Vserver ，而不是 Storage Virtual Machine 。</block>
+  <block id="bf466c7b406d1a8ce527949882e5d4ef" category="list-text">在导航窗格中，选择启用了 VAAI 的数据存储库的 Storage Virtual Machine （ SVM ），然后单击 * 策略 * &gt; * 导出策略 * 。</block>
+  <block id="4ddbde9e87bce8ce72ecc216368b8a0c" category="list-text">在导出策略窗口中，展开导出策略，然后选择规则索引。</block>
+  <block id="19019c13d84b1f8462c766c0987ccd7e" category="paragraph">用户界面未指定数据存储库已启用 VAAI 。</block>
+  <block id="1230dd799e049f8ecc0662d9bdc08146" category="list-text">单击 * 修改规则 * 以显示修改导出规则对话框。</block>
+  <block id="58e85423546b794a1c71ca9387300b8a" category="list-text">在 * 访问协议 * 下，选择 * NFS * 以启用所有版本的 NFS 。</block>
+  <block id="a72cc47fad7d1846d19b085d2e77e5ba" category="list-text">单击 * 确定 * 。</block>
+  <block id="7714147f560840391e6e489fba841be4" category="list-text">如果您使用的是在 7- 模式下运行的 Data ONTAP ，请执行 `exportfs` 命令以导出卷路径。</block>
+  <block id="931043dc28ff99663fd7a88ace5a39f1" category="paragraph">如果使用的是 ONTAP ，请跳过此步骤。</block>
+  <block id="20514f4ef4b2ecf02e2a9ed04cc6f36d" category="inline-link">《 Data ONTAP 8.2 7- 模式文件访问和协议管理指南》</block>
+  <block id="4cd8e8ed7076316854376865caa78af1" category="paragraph">有关 `exportfs` 命令的详细信息，请参见<block ref="a7a4d9fbc8e40171329ee3167349133a" category="inline-link-rx"></block>。</block>
+  <block id="ff9fbbecd46a0bb898c3a37562cba9ba" category="paragraph">导出卷时，您可以指定主机名或 IP 地址，子网或网络组。您可以为 `RW` 和 `root` 选项指定 IP 地址，子网或主机。例如：</block>
+  <block id="b601154cd7bd31804dab33d0205b3d59" category="paragraph">您也可以拥有一个以冒号分隔的列表。例如：</block>
+  <block id="43567a05f0b7aaa853ebbee1fb7f199d" category="paragraph">如果使用实际标志导出卷，则导出路径应具有一个组件，以使副本卸载正常工作。例如：</block>
+  <block id="0c8d07701ae1824f42d90b30a7e1666e" category="admonition">副本卸载对多组件导出路径不起作用。</block>
+  <block id="f4fbabc76fed54aeb7056189f57a06cf" category="list-text">在 ESXi 主机上挂载 NFSv3 或 NFSv4.1 数据存储库：</block>
+  <block id="06a0c6bdff38aaea20edd04befaa7cf4" category="list-text">要挂载 NFSv3 数据存储库，请执行以下命令：</block>
+  <block id="eea31f969123e8c01c6206105f168dbc" category="paragraph">`esxcli storage nfs add -H 192.168.42.80 -s share_name -v volume_name`</block>
+  <block id="fa81050228a7979a3643f93064374458" category="paragraph">要挂载 NFSv4.1 数据存储库，请执行以下命令：</block>
+  <block id="9b10cdd24aabd0e283cb4bb7a93fa6bf" category="paragraph">`esxcli storage nfs41 add -H 192.168.42.80 -s share_name -v volume_name -a AUTH_SYS/SEC_KRB5/SEC_KRB5I`</block>
+  <block id="b3defb89c39d7c46224465f10d9676fd" category="paragraph">以下示例显示了要在 ONTAP 上运行的用于挂载数据存储库的命令以及生成的输出：</block>
+  <block id="f50d1fc9b6e567177fd7e24b7cebf13a" category="paragraph">对于运行 7- 模式 Data ONTAP 的系统， ` /vol` 前缀位于 NFS 卷名称前面。以下示例显示了用于挂载数据存储库的 7- 模式命令以及生成的输出：</block>
+  <block id="fdde8a813cc897a0235421b8bc176ad8" category="list-text">要管理 NAS 挂载，请执行以下操作：</block>
+  <block id="903ca6b068d7144bb3c1f4d6bfc2af74" category="paragraph">`esxcfg-nas -l`</block>
+  <block id="9a940b51cdd2b2d508cffc6eecff9e32" category="paragraph">此时将显示以下输出：</block>
+  <block id="6f4d47f8c8d7727aa5492bec4c200dc1" category="paragraph">完成后，此卷将挂载并显示在 /vmfs/volumes 目录中。</block>
+  <block id="5d86e677f2f7a3fcfe5e676211793109" category="list-text">【第 10 步】使用以下方法之一验证已挂载的数据存储库是否支持 VAAI ：</block>
+  <block id="600f0fcedd4bec226e6bb389e48e9d44" category="paragraph">ESXi 命令行界面</block>
+  <block id="f914d297eddb56f343f32285bde99edc" category="paragraph">`vmkfstools -Ph /vmfs/volumes/onc_src/` 此时将显示以下输出：</block>
+  <block id="4828d21c9bbab0d33e38b4f614088419" category="list-text">单击 * ESXi Server* &gt; * 配置 * &gt; * 存储 * 。</block>
+  <block id="e6177607b7b959c72232448dcbff1437" category="list-text">查看启用了 VAAI 的 NFS 数据存储库的硬件加速列。</block>
+  <block id="48479cae19359032ca558ab40e766d8b" category="paragraph">有关基于 NFS 的 VMware vStorage 的详细信息，请参见以下内容：</block>
+  <block id="6f37bae0644ff45757cfbdc025575308" category="inline-link">ONTAP 9 NFS 参考概述</block>
+  <block id="31c7b98065ebcc9bb646d65a31554c86" category="paragraph"><block ref="31c7b98065ebcc9bb646d65a31554c86" category="inline-link-rx"></block></block>
+  <block id="1cb6b8cf0e15b5ac07411b9b7a490e47" category="paragraph"><block ref="1cb6b8cf0e15b5ac07411b9b7a490e47" category="inline-link-rx"></block></block>
+  <block id="e719123b280714497e885444c73f4d05" category="paragraph">有关在卷中配置卷和空间的详细信息，请参见以下内容：</block>
+  <block id="48661ca2c38172b10371fe966f66da49" category="inline-link">使用 CLI 进行逻辑存储管理概述</block>
+  <block id="4b10da8d27b7c6ed1a851c109f41b9ca" category="paragraph"><block ref="4b10da8d27b7c6ed1a851c109f41b9ca" category="inline-link-rx"></block></block>
+  <block id="25253afb20178012e025c46d720e471f" category="inline-link-macro">《 Data ONTAP 8.2 7- 模式存储管理指南》</block>
+  <block id="61daba862d2376f8b93ec7ef7d49fd75" category="paragraph"><block ref="61daba862d2376f8b93ec7ef7d49fd75" category="inline-link-macro-rx"></block></block>
+  <block id="6051dbe11c9fa8130af42b60ae66abc1" category="paragraph">有关 VMware vSphere Lifecycle Manager 的详细信息，此 vCenter Lifecycle Manager 还可用于使用 vCenter Web Client 图形用户界面在多个主机上安装和管理插件，请参见以下内容：</block>
+  <block id="c7de9d22e1f240785cd33a59ab2501bf" category="inline-link-macro">关于 VMware vSphere Lifecycle Manager</block>
+  <block id="949d7ff889763466db0527cc213b1407" category="paragraph"><block ref="949d7ff889763466db0527cc213b1407" category="inline-link-macro-rx"></block></block>
+  <block id="c725edf2ef5380bd2a6417570f562385" category="paragraph">有关在 VMware 环境中使用 VSC 配置 NFS 数据存储库和创建虚拟机克隆的信息，请参见以下内容：</block>
+  <block id="b8e6c41a6ffba0d701c83cf094867e7a" category="inline-link-macro">《适用于 VMware vSphere 的 Virtual Storage Console 6.2.1 安装和管理指南》</block>
+  <block id="ac6c54c75c97de348bf2b96539b333cd" category="paragraph"><block ref="ac6c54c75c97de348bf2b96539b333cd" category="inline-link-macro-rx"></block></block>
+  <block id="d0138273a9c078c63e6084c7a44264e0" category="paragraph">有关在 VMware 环境中使用适用于 VMware vSphere 的 ONTAP 工具配置 NFS 数据存储库和创建虚拟机克隆的详细信息，请参见以下内容：</block>
+  <block id="46c4d9bfa1c229940459326940489ab0" category="inline-link-macro">适用于 VMware vSphere 的 ONTAP 工具文档</block>
+  <block id="7ebb78c9ff6537bf758fcaf4454224fb" category="paragraph"><block ref="7ebb78c9ff6537bf758fcaf4454224fb" category="inline-link-macro-rx"></block></block>
+  <block id="47ae61fb7877ca4ff133394b75bbec70" category="paragraph">有关使用 NFS 数据存储库和执行克隆操作的详细信息，请参见以下内容：</block>
+  <block id="b13dcdadb494dbca247bd930b7d1cd96" category="inline-link-macro">VMware vSphere 存储</block>
+  <block id="23824440fc7fb7db9a130560bbb0f369" category="paragraph"><block ref="23824440fc7fb7db9a130560bbb0f369" category="inline-link-macro-rx"></block></block>
+  <block id="6197846c485d1298a47650886df4fd1c" category="list-text">如果您使用的是在 7- 模式下运行的 Data ONTAP ，请执行 `sis on` 命令以启用数据存储库卷以进行副本卸载和重复数据删除。</block>
+  <block id="cd950bbb6ad069b72e227946d088f103" category="paragraph">对于 ONTAP ，请查看卷的效率详细信息：</block>
+  <block id="9502ad25405d9e7a6e956b85b44e2b67" category="paragraph">`volume efficiency show -vserver vserver_name -volume volume_name`</block>
+  <block id="6c00a578fa5efbe2777203b3cc135def" category="admonition">对于 AFF （ AFF ）系统，默认情况下会启用卷效率。</block>
+  <block id="02b7374228dd75ca16d1ad24b559e889" category="paragraph">如果命令输出未显示任何已启用存储效率的卷，则启用效率：</block>
+  <block id="527c1ce66e27bc62a475464fc01ba55d" category="paragraph">`-vserver vserver_name -volume volume_name` 上的卷效率</block>
+  <block id="86a451460ce6857e870c4751322edb39" category="paragraph">如果您使用适用于 VMware vSphere 的 VSC 或 ONTAP 工具设置卷，请跳过此步骤，因为默认情况下，数据存储库上已启用卷效率。</block>
+  <block id="0831e0b927f21d4b42cc48055383e97b" category="paragraph">有关在数据存储库卷上启用重复数据删除的详细信息，请参见以下内容：</block>
+  <block id="34f5c90d63f7671b078024b7c9005693" category="paragraph">使用 NFS 插件空间预留和副本卸载功能提高日常任务的效率：</block>
+  <block id="aba025f9027bbfd4b3f9f8299f617a35" category="list-text">在 NetApp 传统卷或 FlexVol 卷上以厚虚拟机磁盘（ VMDK ）格式创建虚拟机，并在创建文件时为其预留空间。</block>
+  <block id="b2c409659c8a7c494ff523bddfb1f19b" category="list-text">在 NetApp 卷内或 NetApp 卷之间克隆现有虚拟机：</block>
+  <block id="94dba74cb05f8a4f56ee0c2037e1617f" category="list-text">数据存储库是同一节点上同一 SVM 上的卷。</block>
+  <block id="b2ea5d37750dbd29ccc07733e3befafc" category="list-text">数据存储库是指不同节点上同一 SVM 上的卷。</block>
+  <block id="b092579e56e3ea512e53820f2c9fb793" category="list-text">属于同一 7- 模式系统或 vFiler 单元上的卷的数据存储库。</block>
+  <block id="208931a06561a452023c11db44400baf" category="list-text">执行比非 VAAI 克隆操作速度更快的克隆操作，因为它们不需要通过 ESXi 主机。</block>
+  <block id="28c2848f4740f85fcc719678504b6d1f" category="summary">您必须配置导出策略，以确保 NFS 服务器上的 VMware vStorage APIs for Array Integration （ VAAI ）存储功能与 NetApp 存储之间的合规性。在 ONTAP 中，卷导出受应用于 Storage Virtual Machine （ SVM ，以前称为 Vserver ）的导出策略的限制。</block>
+  <block id="a0bcc354fa396eb75b84d4d02d9b7718" category="list-text">相关 NFS 卷必须允许 NFSv4 调用。</block>
+  <block id="81bd63e6e41408704c76c863a34ea963" category="list-text">必须保留 root 用户作为主用户。</block>
+  <block id="f3f9c8b334ab43ae4a02968721968177" category="list-text">必须允许在所有互连父卷上使用 NFSv4 。</block>
+  <block id="169893540e481d950c2ea6f83c19c278" category="list-text">必须在相关 NFS 服务器上设置 VAAI 支持选项。</block>
+  <block id="d3b17ff817b0c51315f99bafc8e26760" category="paragraph">您可以为多个条件和协议配置不同的导出策略。</block>
+  <block id="0c07530e6b80f7d242af8944697c7fcb" category="list-text">如果未创建导出策略，请在 VMware ESXi 主机的根卷中为 SVM 创建一个导出策略，此策略包含 SVM 名称，策略名称，默认规则索引，协议等：</block>
+  <block id="a281c08ab625c701854dd4a5b02d8f23" category="paragraph">`vserver export-policy rule modify -vserver vserver name -policyname default -ruleindex rule index -protocol NFSv3\_NFSv4`</block>
+  <block id="70432d21c84231dc621b8775791be8da" category="list-text">修改导出策略以允许在以下情况下使用 NFSv3 和 NFSv4 协议：</block>
+  <block id="0be60a7d83c1b91093247b32008e2271" category="list-text">您必须已为相应的 ESX 服务器和卷配置了具有所有相关访问权限的导出策略规则。</block>
+  <block id="c287667cced8db78caa0010cbc3b6f8a" category="list-text">要匹配客户端，必须已将 RW ， RO 和 Superuser 的值设置为 `SYS` 或 `任何` 。</block>
+  <block id="821f78872960ff3d624c50c7af895a19" category="list-text">您必须已允许使用 NFSv3 和 NFSv4 协议。</block>
+  <block id="2be50b060bf9196c69f84b064ef8d336" category="paragraph">导出策略中的访问协议设置如下：</block>
+  <block id="95ae52d90454f4e2dfa2fc228fbdd7b0" category="list-text">访问协议 = `NFS` （包括所有版本的 NFS ）</block>
+  <block id="4d4aed4d533554a21cdb8e566180e66a" category="list-text">访问协议 = `NFSv3` ， `NFSv4` （用于 NFSv3 数据存储库访问的 NFSv3 ）和 NFSv4 （用于 NFSv4.1 数据存储库访问的 NFSv4 ）。</block>
+  <block id="9aa76cd2560b0a0c4f856ced220c2b26" category="paragraph">以下命令显示 SVM 详细信息并设置导出策略：</block>
+  <block id="2663c9e43716235cc5be7f82db47d29b" category="paragraph">任何策略更改都将应用于使用相关策略的所有卷，而不会局限于 NFS 数据存储库卷。</block>
+  <block id="6486c417bf9c55f6f4cfcce6cf052e12" category="list-text">在以下情况下，修改导出策略以将超级用户设置为 SYS ：</block>
+  <block id="bbd0fba21fb02513be355c2c122c019e" category="list-text">您必须已为接合路径中的所有父卷配置对根卷的读取访问权限， NFSv4 访问权限以及对接合卷的 VAAI 访问权限。</block>
+  <block id="e6ce85fec1798fdaac07f26925e16929" category="paragraph">对于相关客户端， SVM 根卷的超级用户将设置为 SYS 。</block>
+  <block id="a00987e9122193686f425d5b92f69433" category="list-text">您必须已拒绝 SVM 根卷的写入访问权限。以下命令显示 SVM 详细信息并设置导出策略：</block>
+  <block id="7383404c82f19532ca1ae39f882437ac" category="paragraph">由于超级用户设置为 SYS ，因此会保留 root 用户。因此， root 用户可以访问接合路径为 /VAAI 的卷。</block>
+  <block id="5ecfb3f09d557dd0b083daf8fa2c8e4e" category="paragraph">如果根卷和 VMware_VAAI 卷之间的接合中存在其他卷，则这些卷应具有相应客户端的策略规则，其中超级用户设置为 SYS 或任意。</block>
+  <block id="c06676376a8fd8cb681319de1b138ec8" category="paragraph">在大多数情况下，根卷会使用策略并将策略名称设置为默认值。</block>
+  <block id="078b17dae2441e6af63b3c20a7546ae8" category="paragraph">任何策略更改都会应用于使用相关策略的所有卷，而不会限制为根卷。</block>
+  <block id="2db4e6a4f6bd313f133e8782768263ab" category="list-text">启用 vStorage 功能： `nfs modify -vserver vserver_name vmware -vStorage enabled`</block>
+  <block id="c9a163326247e50e0595bbb1eb7fe53c" category="paragraph">SVM 上的 NFS 服务需要启用 vStorage 功能。</block>
+  <block id="1979b5fa591e7f384e495c144fd00e88" category="list-text">验证是否已启用 vStorage 功能：</block>
+  <block id="a09f72b32eb33d59d53f3a5fc8e31c94" category="paragraph">`nfs show -fields vStorage`</block>
+  <block id="76f4b5cd4699c9fde627ad73d421ee52" category="paragraph">输出应显示 `enabled` ：</block>
+  <block id="177de6400c2cce3c75e75d84f9ee17a5" category="list-text">创建导出策略：</block>
+  <block id="662101238aa84e945c980e15357c039f" category="paragraph">`vserver export-policy rule create`</block>
+  <block id="35fe1217cae1d0b6e7d29fda2cfe9903" category="paragraph">以下命令将创建导出策略规则：</block>
+  <block id="d238d1f50ab0ddeaaa09380a04bac848" category="list-text">显示导出策略：</block>
+  <block id="d1adc53af9357da290baa38b065a4c43" category="paragraph">`vserver export-policy show`</block>
+  <block id="310ccf00aa1239adf7da52ab9f8a1cfb" category="paragraph">以下命令将显示导出策略：</block>
+  <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="summary">法律声明提供对版权声明、商标、专利等的访问。</block>
+  <block id="30d965eef5ba25c6b9998ae38270b43e" category="doc">法律声明</block>
+  <block id="6016a2b341113bf496b719905398ecd2" category="section-title">版权</block>
+  <block id="09e95b77ffe81fe465a83ba99efad5c8" category="paragraph"><block ref="09e95b77ffe81fe465a83ba99efad5c8" category="inline-link-rx"></block></block>
+  <block id="126a02652da6de02962cf1b654fd6376" category="section-title">商标</block>
+  <block id="c4ce4761e466527d26b3e3d5ed1006fd" category="paragraph">NetApp 、 NetApp 徽标和 NetApp 商标页面上列出的标记是 NetApp 、 Inc. 的商标。其他公司和产品名称可能是其各自所有者的商标。</block>
+  <block id="7aa531e9acfe2b98e34d2c92fe9846ff" category="paragraph"><block ref="7aa531e9acfe2b98e34d2c92fe9846ff" category="inline-link-rx"></block></block>
+  <block id="be89498d2f8a22ce47c02ba9795fe2af" category="section-title">专利</block>
+  <block id="d0b19d36be2c5f16e9aef46c8a452d3d" category="paragraph">有关 NetApp 拥有的专利的最新列表，请访问：</block>
+  <block id="d7f1fbcf9ce4e42f705add574d262b2c" category="paragraph"><block ref="d7f1fbcf9ce4e42f705add574d262b2c" category="inline-link-rx"></block></block>
+  <block id="56c34c6410dd45c5cec44149ad0ce037" category="section-title">隐私政策</block>
+  <block id="fc248f74f5e36542f7f5627b8610e9a3" category="paragraph"><block ref="fc248f74f5e36542f7f5627b8610e9a3" category="inline-link-rx"></block></block>
+  <block id="24efa7ee4511563b16144f39706d594f" category="section-title">通知</block>
+  <block id="9b73989307c1975dfa4d5e1581e4afe8" category="paragraph">通知文件提供有关 NetApp 软件中使用的第三方版权和许可证的信息。</block>
+  <block id="6cd1b6ee7bdd5546c48ec8d3c4788ba4" category="inline-link-macro">适用于 VMware VAAI 的 NetApp NFS 插件注意事项</block>
+  <block id="c16c6d451761c08c80d8d01b2843cffb" category="paragraph"><block ref="c16c6d451761c08c80d8d01b2843cffb" category="inline-link-macro-rx"></block></block>
+  <block id="9974abf4679b4ac4f12d0dbfbfb114b8" category="sidebar">适用于 VMware VAAI 的 NetApp NFS 插件文档</block>
+  <block id="5dd03e8d039863e563e049be198c3fd3" category="sidebar">发行说明</block>
+  <block id="9f1444ca3aac0720c37a8103593b319f" category="sidebar">安装和配置</block>
+  <block id="d648f2a68a54fd1b3329efc3cf24d29c" category="sidebar">法律声明</block>
+</blocks>

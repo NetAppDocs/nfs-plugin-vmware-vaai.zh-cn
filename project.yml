@@ -1,0 +1,23 @@
+---
+settings:
+  name: NetApp NFS Plug-in for VMware VAAI
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: zh-cn,us-en,ja-jp,ko-kr
+sidebar:
+  entries:
+  - title: 适用于 VMware VAAI 的 NetApp NFS 插件文档
+    url: "/index.html"
+  - title: 发行说明
+    url: "/releasenotes.html"
+  - title: 安装和配置
+    entries:
+    - title: 安装适用于 VMware VAAI 的 NetApp NFS 插件
+      url: "/task-install-netapp-nfs-plugin-for-vmware-vaai.html"
+    - title: 为 ONTAP 配置导出策略以允许基于 NFS 的 VAAI
+      url: "/task-configure-export-policies-for-clustered-data-ontap-to-allow-vaai-over-nfs.html"
+  - title: 法律声明
+    url: "/reference-legal-notices.html"

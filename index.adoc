@@ -1,0 +1,13 @@
+---
+permalink: index.html 
+sidebar: sidebar 
+keywords: installation, guide, nfs, vaai, vmware, esxi, plug-in 
+summary: 集成 ESXi 主机上安装的 VMware 虚拟磁盘库的软件库。 
+---
+= 适用于 VMware VAAI 的 NetApp NFS 插件文档
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+借助此插件，您可以体验到更高性能的克隆操作，这些操作可以更快地完成。您将获得一个软件库，该软件库集成了 ESXi 主机上安装的 VMware 虚拟磁盘库。

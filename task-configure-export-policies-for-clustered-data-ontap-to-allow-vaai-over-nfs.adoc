@@ -1,0 +1,182 @@
+---
+permalink: task-configure-export-policies-for-clustered-data-ontap-to-allow-vaai-over-nfs.html 
+sidebar: sidebar 
+keywords: configure, export, policies, policy, compliance, vmware, vstorage, api, array, integration, vaai, storage, feature, nfs, server, ontap, svm, vserver, vstorage 
+summary: 您必须配置导出策略，以确保 NFS 服务器上的 VMware vStorage APIs for Array Integration （ VAAI ）存储功能与 NetApp 存储之间的合规性。在 ONTAP 中，卷导出受应用于 Storage Virtual Machine （ SVM ，以前称为 Vserver ）的导出策略的限制。 
+---
+= 为 ONTAP 配置导出策略以允许基于 NFS 的 VAAI
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+您必须配置导出策略，以确保 NFS 服务器上的 VMware vStorage APIs for Array Integration （ VAAI ）存储功能与 NetApp 存储之间的合规性。在 ONTAP 中，卷导出受应用于 Storage Virtual Machine （ SVM ，以前称为 Vserver ）的导出策略的限制。
+
+.开始之前
+* 相关 NFS 卷必须允许 NFSv4 调用。
+* 必须保留 root 用户作为主用户。
+* 必须允许在所有互连父卷上使用 NFSv4 。
+* 必须在相关 NFS 服务器上设置 VAAI 支持选项。
+
+
+您可以为多个条件和协议配置不同的导出策略。
+
+.步骤
+. 如果未创建导出策略，请在 VMware ESXi 主机的根卷中为 SVM 创建一个导出策略，此策略包含 SVM 名称，策略名称，默认规则索引，协议等：
++
+`vserver export-policy rule modify -vserver vserver name -policyname default -ruleindex rule index -protocol NFSv3\_NFSv4`
+
+. 修改导出策略以允许在以下情况下使用 NFSv3 和 NFSv4 协议：
++
+** 您必须已为相应的 ESX 服务器和卷配置了具有所有相关访问权限的导出策略规则。
+** 要匹配客户端，必须已将 RW ， RO 和 Superuser 的值设置为 `SYS` 或 `任何` 。
+** 您必须已允许使用 NFSv3 和 NFSv4 协议。
++
+导出策略中的访问协议设置如下：
+
++
+*** 访问协议 = `NFS` （包括所有版本的 NFS ）
+*** 访问协议 = `NFSv3` ， `NFSv4` （用于 NFSv3 数据存储库访问的 NFSv3 ）和 NFSv4 （用于 NFSv4.1 数据存储库访问的 NFSv4 ）。
++
+以下命令显示 SVM 详细信息并设置导出策略：
+
++
+[listing]
+----
+cm3240c-rtp::> vol show -vserver vmware -volume vmware_VAAI -fields policy (volume
+show)
+vserver volume       policy         junction-path
+------- ------       -------        -------------
+vmware  vmware_VAAI  vmware_access  /VAAI
+----
+
+
++
+[listing]
+----
+cm3240c-rtp::> export-policy rule show -vserver vmware -policyname vmware_access-ruleindex 2(vserver export-policy rule show)
+
+Vserver: vmware
+Policy Name: vmware_access
+Rule Index: 1
+Access Protocol: nfs3,nfs4 (can also be nfs for NFSv3)
+Client Match Spec: 192.168.1.6
+RO Access Rule: sys
+RW Access Rule: sys
+User ID To Which Anonymous Users Are Mapped: 65534
+Superuser Security Flavors: sys
+Honor SetUID Bits In SETATTR: true
+Allow Creation of Devices: true
+----
+
+
++
+任何策略更改都将应用于使用相关策略的所有卷，而不会局限于 NFS 数据存储库卷。
+
+. 在以下情况下，修改导出策略以将超级用户设置为 SYS ：
++
+** 您必须已为接合路径中的所有父卷配置对根卷的读取访问权限， NFSv4 访问权限以及对接合卷的 VAAI 访问权限。
++
+对于相关客户端， SVM 根卷的超级用户将设置为 SYS 。
+
+** 您必须已拒绝 SVM 根卷的写入访问权限。以下命令显示 SVM 详细信息并设置导出策略：
++
+[listing]
+----
+cm3240c-rtp::> vol show -vserver vmware -volume vmware_root -fields policy,
+junction-path (volume show)
+vserver volume policy  junction-path
+------- ------ ------- -------------
+vmware  vmware_root  root_policy /
+----
++
+[listing]
+----
+
+cm3240c-rtp::> export-policy rule show -vserver vmware -policyname root_policy
+-ruleindex 1 (vserver export-policy rule show)
+
+Vserver: vmware
+Policy Name: root_policy
+Rule Index: 1
+Access Protocol: nfs  <--- as in scenario 1, set to nfs or nfs3,nfs4
+Client Match Spec: 192.168.1.5
+RO Access Rule: sys
+RW Access Rule: never  <--- this can be never for security reasons
+User ID To Which Anonymous Users Are Mapped: 65534
+Superuser Security Flavors: sys   <--- this is required for VAAI to be set, even
+in the parent volumes like vsroot
+Honor SetUID Bits In SETATTR: true
+Allow Creation of Devices: true
+----
++
+由于超级用户设置为 SYS ，因此会保留 root 用户。因此， root 用户可以访问接合路径为 /VAAI 的卷。
+
++
+如果根卷和 VMware_VAAI 卷之间的接合中存在其他卷，则这些卷应具有相应客户端的策略规则，其中超级用户设置为 SYS 或任意。
+
++
+在大多数情况下，根卷会使用策略并将策略名称设置为默认值。
+
++
+任何策略更改都会应用于使用相关策略的所有卷，而不会限制为根卷。
+
+
+
+. 启用 vStorage 功能： `nfs modify -vserver vserver_name vmware -vStorage enabled`
++
+SVM 上的 NFS 服务需要启用 vStorage 功能。
+
+. 验证是否已启用 vStorage 功能：
++
+`nfs show -fields vStorage`
+
++
+输出应显示 `enabled` ：
+
++
+[listing]
+----
+cm3240c-rtp::> nfs show -fields vstorage
+vserver vstorage
+------- --------
+vmware  enabled
+----
+. 创建导出策略：
++
+`vserver export-policy rule create`
+
++
+以下命令将创建导出策略规则：
+
++
+[listing]
+----
+User1-vserver2::> protocol export-policy rule create -vserver vs1
+-policyname default -clientmatch 0.0.0.0/0 -rorule any -rwrule any -superuser
+any -anon 0
+
+User1-vserver2::> export-policy rule show vserver export-policy rule show)
+Virtual      Policy          Rule    Access   Client                RO
+Server       Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+vs1          default         1       any      0.0.0.0/0             any
+
+User1-vserver2::>
+----
+. 显示导出策略：
++
+`vserver export-policy show`
+
++
+以下命令将显示导出策略：
+
++
+[listing]
+----
+User1-vserver2::> export-policy show (vserver export-policy show)
+Virtual Server   Policy Name
+---------------  -------------------
+vs1              default
+----
+

@@ -5,6 +5,7 @@ keywords: installation, guide, nfs, vaai, vmware, esxi, plug-in
 summary: 集成 ESXi 主机上安装的 VMware 虚拟磁盘库的软件库。 
 ---
 = 适用于 VMware VAAI 的 NetApp NFS 插件文档
+:allow-uri-read: 
 :icons: font
 :imagesdir: ./media/
 

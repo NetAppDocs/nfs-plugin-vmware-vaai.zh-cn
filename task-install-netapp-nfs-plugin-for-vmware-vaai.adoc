@@ -5,6 +5,7 @@ keywords: install, netapp, nfs, plug-in, vmware, vaai, involve, enable, netapp, 
 summary: 安装 NFS 插件涉及到在 NetApp 存储系统上启用适用于 NFS 的 VMware vStorage ，验证 VMware 主机上是否已启用 VAAI （适用于阵列集成的 VMware vStorage API ），在 VMware ESXi 主机上下载并安装此插件，以及验证安装是否成功。 
 ---
 = 安装适用于 VMware VAAI 的 NetApp NFS 插件
+:allow-uri-read: 
 :icons: font
 :imagesdir: ./media/
 

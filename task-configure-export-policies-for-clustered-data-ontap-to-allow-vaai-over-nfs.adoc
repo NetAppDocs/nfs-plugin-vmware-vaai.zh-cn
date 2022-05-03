@@ -5,6 +5,7 @@ keywords: configure, export, policies, policy, compliance, vmware, vstorage, api
 summary: 您必须配置导出策略，以确保 NFS 服务器上的 VMware vStorage APIs for Array Integration （ VAAI ）存储功能与 NetApp 存储之间的合规性。在 ONTAP 中，卷导出受应用于 Storage Virtual Machine （ SVM ，以前称为 Vserver ）的导出策略的限制。 
 ---
 = 为 ONTAP 配置导出策略以允许基于 NFS 的 VAAI
+:allow-uri-read: 
 :icons: font
 :imagesdir: ./media/
 

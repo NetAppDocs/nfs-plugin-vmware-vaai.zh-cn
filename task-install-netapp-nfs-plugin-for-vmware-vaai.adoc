@@ -22,15 +22,15 @@ NOTE: NFSv4.1 仅适用于 ONTAP 9.0 系统，而 NFSv3 同时适用于 7- 模�
 * VMware vSphere 7.0U1 必须可用。
 
 
-有关追加信息 启用 NFS 和使用 VMware vSphere 的信息，请参见中列出的手册 ,第 10 步。
+有关追加信息 启用 NFS 和使用 VMware vSphere 的信息，请参见中列出的手册 <<step10,第 10 步>>。
 
 .关于此任务
-* 如果使用 VMware ESXi 命令行界面安装此插件，请从开始 ,第 1 步。
-* 如果要使用适用于 VMware vSphere 的 Virtual Storage Console （ VSC ）安装此插件，请从开始 ,第 3 步。
+* 如果使用 VMware ESXi 命令行界面安装此插件，请从开始 <<step1,第 1 步>>。
+* 如果要使用适用于 VMware vSphere 的 Virtual Storage Console （ VSC ）安装此插件，请从开始 <<step3,第 3 步>>。
 +
-VSC 会在存储控制器上启用 VMware vStorage for NFS ，并在 ESXi 主机上启用 VAAI ，这些步骤如下 ,1. 到 ,2. 的操作步骤 。
+VSC 会在存储控制器上启用 VMware vStorage for NFS ，并在 ESXi 主机上启用 VAAI ，这些步骤如下 <<step1,1.>> 到 <<step2,2.>> 的操作步骤 。
 
-* 如果要使用适用于 VMware vSphere 的 ONTAP 工具安装此插件，请从开始 ,第 3 步。
+* 如果要使用适用于 VMware vSphere 的 ONTAP 工具安装此插件，请从开始 <<step3,第 3 步>>。
 
 
 使用的 * IP 地址约定： *
@@ -415,6 +415,7 @@ https://library.netapp.com/ecm/ecm_download_file/ECMP1401220["《 Data ONTAP 8.2
 
 
 
+.完成后
 使用 NFS 插件空间预留和副本卸载功能提高日常任务的效率：
 
 * 在 NetApp 传统卷或 FlexVol 卷上以厚虚拟机磁盘（ VMDK ）格式创建虚拟机，并在创建文件时为其预留空间。

@@ -54,10 +54,6 @@
   <block id="ea193ae4c3d51a911f7315ec65bc32df" category="inline-link">适用于 VMware VAAI 的 NetApp NFS 插件下载</block>
   <block id="fb17ba4a99b09467f9c74b9e2e118576" category="list-text">转到下载页面，网址为<block ref="65095c4704b8f4c7de538e0714fe91ec" category="inline-link-rx"></block>。</block>
   <block id="fe7c02072f421eec45e6b3d6a4f22a84" category="list-text">下载适用于 2.0 和 vSphere 7.0U1 及更高版本的最新软件版本。</block>
-  <block id="aa138e612a93a8ba8b0894444e154798" category="list-text">使用以下命令在 ESXi 主机上安装此插件：</block>
-  <block id="ffb9bd6fd201fa872c732a77697dff9c" category="paragraph">`esxcli 软件组件应用 -d /&lt;tmp&gt;/&lt;or&gt;/&lt;ase_path\&gt;/&lt;downloaded-plugin-file-version\&gt;.zip`</block>
-  <block id="b8c172cbcf6752c33f19da0dce7c36e3" category="paragraph">其中， ` &lt;asor_path&gt;` 是下载文件位置的路径， ` &lt;downloaded-plugin-file-version&gt;` 是下载文件的名称。</block>
-  <block id="33d39932b49b03dd01884f8dafa83003" category="list-text">运行以下命令以完成安装：</block>
   <block id="1aff16ddc088e52eb042b0cb7f757cfb" category="paragraph">` /etc/init.d/VAAI-NASD start`</block>
   <block id="6a0e7f9e8f08992284d207c6e71368f7" category="paragraph">` /etc/init.d/VAAI-NASD stop`</block>
   <block id="c2e0793b7a849210f05eefa6d3ed65fc" category="list-text">通过 VMware ESXi 命令行验证此插件是否已成功安装在主机上：</block>
@@ -203,4 +199,22 @@
   <block id="9f1444ca3aac0720c37a8103593b319f" category="sidebar">安装和配置</block>
   <block id="d648f2a68a54fd1b3329efc3cf24d29c" category="sidebar">法律声明</block>
   <block id="bd965e38a0c9cf27aa1bde099308e23f" category="paragraph-title">完成后</block>
+  <block id="ba4ce12823e88958d2f1e7860a9566fe" category="list-text">使用签名映像和公共密钥验证二进制文件：</block>
+  <block id="f75a02f0891a62f4fe2fc779eec4bf92" category="list-text">将以下zip下载到<block ref="d42b9c57d24cf5db3bd8d332dc35437f" prefix=" " category="inline-code"></block> 文件夹：</block>
+  <block id="bdc843828082814edeff6ef9e42528a7" category="paragraph"><block ref="69481142e9e17017302f3bd5378efd6f" prefix="" category="inline-code"></block></block>
+  <block id="a46c50d1ba8b9f0053805f68b9704997" category="paragraph">此zip文件包含以下文件：</block>
+  <block id="c9d5084766bc919dee57097cb6bd9933" category="list-text"><block ref="1c48c06efd50afa32c7b21b0cfc0f300" prefix="" category="inline-code"></block></block>
+  <block id="c9cea0ff0eb4bc675154cbfefee88020" category="list-text"><block ref="978112f01962320c1f644e7a7dbd3dac" prefix="" category="inline-code"></block></block>
+  <block id="447b61cb9483ad098fa057becb70d04b" category="list-text"><block ref="1b93b595db63cb1c66f76c6cb7de5226" prefix="" category="inline-code"></block></block>
+  <block id="21db22890caaa35f0104a25bc4642fbd" category="list-text">使用以下命令从证书链中获取公共密钥：</block>
+  <block id="3e98715ecadec71bfe3b408821bec7ee" category="paragraph"><block ref="c0b54e74396d9b6d2f2ec191873e4049" prefix="" category="inline-code"></block></block>
+  <block id="1a39fd23e9dd446f2f183a2c793e34bf" category="list-text"><block ref="1b93b595db63cb1c66f76c6cb7de5226" prefix="" category="inline-code"></block> 中是否存在证书链<block ref="69481142e9e17017302f3bd5378efd6f" prefix=" " category="inline-code"></block></block>
+  <block id="89a0b260f7b701142fba84f50b974b18" category="list-text"><block ref="ec78f8e40f40fdb1a428a9a42fce8585" prefix="" category="inline-code"></block> 是公共密钥</block>
+  <block id="c62cd4f7e327eb73da18da9f286d86d9" category="list-text">使用公共密钥验证签名映像：</block>
+  <block id="d01abbc111bb2b516f6b652237cc7303" category="paragraph"><block ref="c84979e41689839e936de1102da23710" prefix="" category="inline-code"></block></block>
+  <block id="02b7b4f5263c5afbe60e4864bceb1418" category="paragraph">如果验证成功、将显示以下输出：</block>
+  <block id="13d89b9c8e0031565d47498647d5d9b7" category="list-text">运行以下命令、在ESXi主机上安装此插件：</block>
+  <block id="1eaacab61d94e4c32387e1dfc31409e1" category="paragraph"><block ref="dcfa5d0a20000618e1cabbca334a303d" prefix="" category="inline-code"></block></block>
+  <block id="e4f7452d3e0b93cb5e2a7d8c91230819" category="list-text"><block ref="885f73cf13e071b6b552b023d45e71fc" prefix="" category="inline-code"></block> 是下载文件所在位置的路径</block>
+  <block id="8d10891733deb2bb64f467a947e80106" category="list-text"><block ref="1c48c06efd50afa32c7b21b0cfc0f300" prefix="" category="inline-code"></block> 包含在下载的zip中</block>
 </blocks>

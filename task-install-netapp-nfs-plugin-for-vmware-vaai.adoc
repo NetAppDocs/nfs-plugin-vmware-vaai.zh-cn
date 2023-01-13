@@ -125,19 +125,58 @@ vSphere 客户端
 .. 下载适用于 2.0 和 vSphere 7.0U1 及更高版本的最新软件版本。
 
 
-. 使用以下命令在 ESXi 主机上安装此插件：
+. 使用签名映像和公共密钥验证二进制文件：
 +
-`esxcli 软件组件应用 -d /<tmp>/<or>/<ase_path\>/<downloaded-plugin-file-version\>.zip`
+.. 将以下zip下载到 `/tmp` 文件夹：
++
+`NetAppNasPlugin-<version>.Signed.zip`
 
 +
-其中， ` <asor_path>` 是下载文件位置的路径， ` <downloaded-plugin-file-version>` 是下载文件的名称。
+此zip文件包含以下文件：
 
-. 运行以下命令以完成安装：
++
+*** `NetAppNasPlugin-<version>.zip`
+*** `NetAppNasPlugin-<version>.zip.sig`
+*** `csc-prod-CFSG-NFS-Plugin.pem`
+
+
+.. 使用以下命令从证书链中获取公共密钥：
++
+`openssl x509 -in csc-prod-CFSG-NFS-Plugin.pem -pubkey -noout > csc-prod-CFSG-NFS-Plugin.pub`
+
++
+*** `csc-prod-CFSG-NFS-Plugin.pem` 中是否存在证书链 `NetAppNasPlugin-<version>.Signed.zip`
+*** `csc-prod-CFSG-NFS-Plugin.pub` 是公共密钥
+
+
+.. 使用公共密钥验证签名映像：
++
+`openssl dgst -sha256 -verify csc-prod-CFSG-NFS-Plugin.pub -signature /tmp/ NetAppNasPlugin-<version>.zip.sig  /tmp/NetAppNasPlugin-<version>.zip`
+
++
+如果验证成功、将显示以下输出：
+
++
+[listing]
+----
+Verified OK
+----
+
+
+. 运行以下命令、在ESXi主机上安装此插件：
++
+` /etc/init.d/VAAI-NASD stop`
+
++
+`esxcli software component apply -d   /tmp/<some_path>/NetAppNasPlugin-<version>.zip`
+
 +
 ` /etc/init.d/VAAI-NASD start`
 
 +
-` /etc/init.d/VAAI-NASD stop`
+** `<some_path>` 是下载文件所在位置的路径
+** `NetAppNasPlugin-<version>.zip` 包含在下载的zip中
+
 
 . 通过 VMware ESXi 命令行验证此插件是否已成功安装在主机上：
 +

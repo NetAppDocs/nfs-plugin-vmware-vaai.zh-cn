@@ -20,4 +20,4 @@ sidebar:
     - title: 为 ONTAP 配置导出策略以允许基于 NFS 的 VAAI
       url: "/task-configure-export-policies-for-clustered-data-ontap-to-allow-vaai-over-nfs.html"
   - title: 法律声明
-    url: "/reference-legal-notices.html"
+    url: "/legal-notices.html"

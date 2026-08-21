@@ -407,7 +407,7 @@ link:https://docs.netapp.com/vapp-98/topic/com.netapp.doc.vsc-dsg/home.html["适
 有关使用 NFS 数据存储库和执行克隆操作的详细信息，请参见以下内容：
 
 +
-link:http://pubs.vmware.com/vsphere-60/topic/com.vmware.ICbase/PDF/vsphere-esxi-vcenter-server-60-storage-guide.pdf["VMware vSphere 存储"^]
+link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vsphere-storage.html["VMware vSphere 存储"^]
 
 . 如果您使用的是在 7- 模式下运行的 Data ONTAP ，请执行 `sis on` 命令以启用数据存储库卷以进行副本卸载和重复数据删除。
 +

@@ -126,7 +126,6 @@
   <block id="7ebb78c9ff6537bf758fcaf4454224fb" category="paragraph"><block ref="7ebb78c9ff6537bf758fcaf4454224fb" category="inline-link-macro-rx"></block></block>
   <block id="47ae61fb7877ca4ff133394b75bbec70" category="paragraph">有关使用 NFS 数据存储库和执行克隆操作的详细信息，请参见以下内容：</block>
   <block id="b13dcdadb494dbca247bd930b7d1cd96" category="inline-link-macro">VMware vSphere 存储</block>
-  <block id="23824440fc7fb7db9a130560bbb0f369" category="paragraph"><block ref="23824440fc7fb7db9a130560bbb0f369" category="inline-link-macro-rx"></block></block>
   <block id="6197846c485d1298a47650886df4fd1c" category="list-text">如果您使用的是在 7- 模式下运行的 Data ONTAP ，请执行 `sis on` 命令以启用数据存储库卷以进行副本卸载和重复数据删除。</block>
   <block id="cd950bbb6ad069b72e227946d088f103" category="paragraph">对于 ONTAP ，请查看卷的效率详细信息：</block>
   <block id="9502ad25405d9e7a6e956b85b44e2b67" category="paragraph">`volume efficiency show -vserver vserver_name -volume volume_name`</block>
@@ -220,4 +219,5 @@
   <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
   <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
   <block id="c0227cef6f07a8cd2ac72f2945b031aa" category="section-title">开放源代码</block>
+  <block id="696c9f90cd1e53238d0ed4d4258f4677" category="paragraph"><block ref="696c9f90cd1e53238d0ed4d4258f4677" category="inline-link-macro-rx"></block></block>
 </blocks>
